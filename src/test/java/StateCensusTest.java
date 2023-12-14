@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import com.census.CensusException;
@@ -69,6 +71,20 @@ public class StateCensusTest {
             analyzer=new StateCensusAnalyzer("StateCensus3.csv");
             analyzer.loadData();
             analyzer.countData();
+        }catch(CensusException e){
+            fail("EXCEPTION OCCURRED : "+e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @Test void verifyCountWithStateCodes(){
+        try{
+            analyzer=new StateCensusAnalyzer("StateCensus.csv");
+            analyzer.loadData();
+            int countForCsv=analyzer.countData();
+            ArrayList<String> stateCodeList=analyzer.getStateCodes();
+            int stateCodeCount=stateCodeList.size();
+            assertEquals(countForCsv, stateCodeCount);
         }catch(CensusException e){
             fail("EXCEPTION OCCURRED : "+e.getMessage());
             e.printStackTrace();

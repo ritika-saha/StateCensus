@@ -1,5 +1,6 @@
 package com.census;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class StateCensusAnalyzer {
@@ -42,6 +43,16 @@ public class StateCensusAnalyzer {
         }
 
         return count==expectedCount;
+    }
+
+    public ArrayList<String> getStateCodes() throws CensusException{
+        ArrayList<String> stateCodeList=new ArrayList<>();
+         Iterator<String[]> itr=CSVutilObj.loadCSV();
+        while(itr.hasNext()){
+            String tmp[]=itr.next();
+            stateCodeList.add(tmp[3]);
+        }
+        return stateCodeList;
     }
 
 
